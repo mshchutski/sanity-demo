@@ -69,13 +69,13 @@ Use the Deploy Button below. It will let you deploy the starter using [Vercel](h
 [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that was created for you on your GitHub account. Once cloned, run the following command from the project's root directory:
 
 ```bash
-npx vercel link
+pnpm dlx vercel link
 ```
 
 Download the environment variables needed to connect Next.js and the Studio to your Sanity project:
 
 ```bash
-npx vercel env pull
+pnpm dlx vercel env pull
 ```
 
 This will create a git-ignored `.env` file with environment variables that will be used for local development.
@@ -83,7 +83,7 @@ This will create a git-ignored `.env` file with environment variables that will 
 ### Step 3. Run Next.js locally in development mode
 
 ```bash
-npm install && npm run dev
+pnpm install && pnpm run dev
 ```
 
 When you run this development server, the changes you make in your frontend and studio configuration will be applied live using hot reloading.

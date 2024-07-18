@@ -211,6 +211,59 @@ export type AllSanitySchemaTypes =
   | SanityImageMetadata
   | Slug
 export declare const internalGroqTypeReferenceTo: unique symbol
+// Source: ../sanity-demo/sanity/lib/queries/cards.ts
+// Variable: cardsQuery
+// Query: *[_type == "card"] | order(_createdAt desc)
+export type CardsQueryResult = Array<{
+  _id: string
+  _type: 'card'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  description?: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  cta?: {
+    title?: string
+    href?: string
+  }
+}>
+// Variable: getCardsQuery
+// Query:     *[_type == 'card']
+export type GetCardsQueryResult = Array<{
+  _id: string
+  _type: 'card'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  description?: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
+  cta?: {
+    title?: string
+    href?: string
+  }
+}>
 // Source: ../sanity-demo/sanity/lib/queries/posts.ts
 // Variable: postsQuery
 // Query: *[_type == "post" && defined(slug.current)] | order(_createdAt desc)

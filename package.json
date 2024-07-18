@@ -1,13 +1,18 @@
 {
   "private": true,
   "scripts": {
-    "build": "next build",
+    "predev": "pnpm run typegen",
     "dev": "next",
+    "prebuild": "npm run typegen", 
+    "build": "next build",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
     "start": "next start",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "typegen": "pnpm dlx sanity schema extract && sanity typegen generate",
+        "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#using-the-sanity-cli'",
+    "setup": "npx sanity@latest init --env .env.local"
   },
   "prettier": {
     "semi": false,
