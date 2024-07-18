@@ -1,16 +1,16 @@
 import Image from 'next/image'
 
 import { urlForImage } from '@/sanity/lib/sanity.image'
-import { Card as CardType } from '@/sanity/types'
+import { Post } from '@/sanity/types'
 import { formatDate } from '@/utils/index'
 
-export function Card({ card }: { card: CardType }) {
+export function PostCard({ post }: { post: Post }) {
   return (
     <div className="card">
-      {card.image ? (
+      {post.mainImage ? (
         <Image
           className="card__cover"
-          src={urlForImage(card.image).width(500).height(300).url()}
+          src={urlForImage(post.mainImage).width(500).height(300).url()}
           height={300}
           width={500}
           alt=""
@@ -20,13 +20,12 @@ export function Card({ card }: { card: CardType }) {
       )}
       <div className="card__container">
         <h3 className="card__title">
-          {card.title}
-          {/* <a className="card__link" href={`/post/${card?.slug?.current}`}>
-            {card.title}
-          </a> */}
+          <a className="card__link" href={`/post/${post?.slug?.current}`}>
+            {post.title}
+          </a>
         </h3>
-        {/* <p className="card__excerpt">{card.excerpt}</p> */}
-        <p className="card__date">{formatDate(card._createdAt)}</p>
+        <p className="card__excerpt">{post.excerpt}</p>
+        <p className="card__date">{formatDate(post._createdAt)}</p>
       </div>
     </div>
   )

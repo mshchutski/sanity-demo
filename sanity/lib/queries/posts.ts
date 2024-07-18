@@ -1,7 +1,7 @@
-import type { PortableTextBlock } from '@portabletext/types'
-import type { ImageAsset, Slug } from '@sanity/types'
 import groq from 'groq'
 import { type SanityClient } from 'next-sanity'
+
+import { Post } from '@/sanity/types'
 
 export const postsQuery = groq`*[_type == "post" && defined(slug.current)] | order(_createdAt desc)`
 
@@ -23,14 +23,3 @@ export async function getPost(
 export const postSlugsQuery = groq`
 *[_type == "post" && defined(slug.current)][].slug.current
 `
-
-export interface Post {
-  _type: 'post'
-  _id: string
-  _createdAt: string
-  title?: string
-  slug: Slug
-  excerpt?: string
-  mainImage?: ImageAsset
-  body: PortableTextBlock[]
-}

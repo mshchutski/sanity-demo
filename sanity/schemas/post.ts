@@ -39,7 +39,6 @@ export default defineType({
       name: 'details',
       type: 'array',
       of: [{ type: 'block' }],
-      // group: 'editorial',
     }),
   ],
   preview: {

@@ -3,18 +3,18 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
 
+import Container from '@/components/Container'
+import type { SharedPageProps } from '@/pages/_app'
+import {
+  getPost,
+  postBySlugQuery,
+  postSlugsQuery,
+} from '@/sanity/lib/queries'
 import { readToken } from '@/sanity/lib/sanity.api'
 import { getClient } from '@/sanity/lib/sanity.client'
 import { urlForImage } from '@/sanity/lib/sanity.image'
-import {
-  getPost,
-  type Post,
-  postBySlugQuery,
-  postSlugsQuery,
-} from '@/sanity/lib/sanity.queries'
-import Container from '~/components/Container'
-import type { SharedPageProps } from '~/pages/_app'
-import { formatDate } from '~/utils'
+import { Post } from '@/sanity/types'
+import { formatDate } from '@/utils/index'
 
 interface Query {
   [key: string]: string
