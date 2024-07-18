@@ -14,7 +14,8 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      validation: (Rule) => Rule.required(),
+      validation: (rule) =>
+        rule.required().error(`Required to generate a page on the website`),
       options: {
         source: 'title',
         maxLength: 96,
@@ -35,9 +36,10 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'details',
+      type: 'array',
+      of: [{ type: 'block' }],
+      // group: 'editorial',
     }),
   ],
   preview: {
