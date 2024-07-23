@@ -1,35 +1,34 @@
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'card',
-  title: 'Card',
+  name: 'headerCarousel',
+  title: 'Home Header Carousel',
   type: 'document',
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'description',
+      name: 'desc',
       title: 'Description',
       type: 'string',
     }),
     defineField({
-      name: 'image',
       title: 'Image',
+      name: 'image',
       type: 'image',
-      //   options: {
-      //     hotspot: true,
-      //   },
-    }),
-    defineField({
-      name: 'cta',
-      title: 'Call to action button',
-      type: 'object',
+      options: {
+        hotspot: true,
+      },
       fields: [
-        { name: 'title', title: 'Title', type: 'string' },
-        { name: 'href', title: 'Pathname', type: 'string' },
+        {
+          title: 'Alt',
+          name: 'alt',
+          type: 'string',
+        }
       ],
     }),
   ],
