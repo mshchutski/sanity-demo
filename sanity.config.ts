@@ -3,7 +3,7 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import { defineConfig } from 'sanity'
+import {defineConfig} from 'sanity'
 import { structureTool } from 'sanity/structure'
 import {
   defineUrlResolver,
@@ -19,6 +19,8 @@ import {
   projectId,
 } from '@/sanity/lib/sanity.api'
 import { schema } from '@/sanity/schemas'
+import {Doc} from "@sanity/mutator";
+import { getClient } from './sanity/lib/sanity.client';
 
 const iframeOptions = {
   url: defineUrlResolver({
@@ -28,6 +30,15 @@ const iframeOptions = {
   urlSecretId: previewSecretId,
   reload: { button: true },
 } satisfies IframeOptions
+
+async function getPreviewUrl(doc: Doc, type: string) {
+  return doc?.slug?.current
+    ? `${
+      process.env.NEXT_PUBLIC_VERCEL_URL ||
+      window.location.protocol + '//' + window.location.host
+    }/${type}/${doc.slug.current}`
+    : `${process.env.NEXT_PUBLIC_VERCEL_URL || window.location.host}`;
+}
 
 export default defineConfig({
   basePath: '/sanity/studio',
@@ -45,12 +56,60 @@ export default defineConfig({
       // It's part of the Studio's “Structure Builder API” and is documented here:
       // https://www.sanity.io/docs/structure-builder-reference
       defaultDocumentNode: (S, { schemaType }) => {
-        return S.document().views([
-          // Default form view
-          S.view.form(),
-          // Preview
-          S.view.component(Iframe).options(iframeOptions).title('Preview'),
-        ])
+        switch (schemaType) {
+          case `articles`:
+            return S.document().views([
+              S.view.form(),
+              S.view
+                .component(Iframe)
+                .options({
+                  url: (doc: Doc) => getPreviewUrl(doc, 'articles'),
+                  defaultSize: 'desktop',
+                  reload: { button: true },
+                  attributes: {},
+                })
+
+                .title('Preview'),
+            ]);
+
+          case `author`:
+            return S.document().views([
+              S.view.form(),
+              S.view
+                .component(Iframe)
+                .options({
+                  url: (doc: Doc) => getPreviewUrl(doc, 'author'),
+                  defaultSize: 'desktop',
+                  reload: { button: true },
+                  attributes: {},
+                })
+
+                .title('Preview'),
+            ]);
+
+          case `travels`:
+            return S.document().views([
+              S.view.form(),
+              S.view
+                .component(Iframe)
+                .options({
+                  url: (doc: Doc) => getPreviewUrl(doc, 'travels'),
+                  defaultSize: 'desktop',
+                  reload: { button: true },
+                  attributes: {},
+                })
+
+                .title('Preview'),
+            ]);
+
+          default:
+            return S.document().views([
+              // Default form view
+              S.view.form(),
+              // Preview
+              S.view.component(Iframe).options(iframeOptions).title('Preview'),
+            ]);
+        }
       },
     }),
     // Vision lets you query your content with GROQ in the studio

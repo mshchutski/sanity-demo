@@ -23,3 +23,5 @@ export function getClient(preview?: { token: string }): SanityClient {
   }
   return client
 }
+
+export const getSanityImageConfig = () => getClient()
