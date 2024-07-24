@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@next/env':
+        specifier: ^14.2.5
+        version: 14.2.5
       '@portabletext/react':
         specifier: 3.0.11
         version: 3.0.11(react@18.2.0)
@@ -1217,6 +1220,9 @@ packages:
 
   '@next/env@14.1.0':
     resolution: {integrity: sha512-Py8zIo+02ht82brwwhTg36iogzFqGLPXlRGKQw5s+qP/kMNc4MAyDeEwBKDijk6zTIbegEgu8Qy7C1LboslQAw==}
+
+  '@next/env@14.2.5':
+    resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
 
   '@next/eslint-plugin-next@14.1.0':
     resolution: {integrity: sha512-x4FavbNEeXx/baD/zC/SdrvkjSby8nBn8KcCREqk6UuwvwoAPZmaV8TFCAuo/cpovBRTIY67mHhe86MQQm/68Q==}
@@ -6465,6 +6471,8 @@ snapshots:
       '@lezer/common': 1.2.1
 
   '@next/env@14.1.0': {}
+
+  '@next/env@14.2.5': {}
 
   '@next/eslint-plugin-next@14.1.0':
     dependencies:
