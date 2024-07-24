@@ -2,6 +2,7 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
+import {Doc} from "@sanity/mutator";
 import { visionTool } from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import { structureTool } from 'sanity/structure'
@@ -19,8 +20,6 @@ import {
   projectId,
 } from '@/sanity/lib/sanity.api'
 import { schema } from '@/sanity/schemas'
-import {Doc} from "@sanity/mutator";
-import { getClient } from './sanity/lib/sanity.client';
 
 const iframeOptions = {
   url: defineUrlResolver({
