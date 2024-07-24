@@ -32,11 +32,11 @@ const iframeOptions = {
 } satisfies IframeOptions
 
 async function getPreviewUrl(doc: Doc, type: string) {
-  return doc?.slug?.current
+  return (doc?.slug as any)?.current
     ? `${
       process.env.NEXT_PUBLIC_VERCEL_URL ||
       window.location.protocol + '//' + window.location.host
-    }/${type}/${doc.slug.current}`
+    }/${type}/${(doc?.slug as any).current}`
     : `${process.env.NEXT_PUBLIC_VERCEL_URL || window.location.host}`;
 }
 
