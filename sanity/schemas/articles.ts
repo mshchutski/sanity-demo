@@ -1,5 +1,5 @@
 import { defineField, defineType } from 'sanity'
-import Author from "@/sanity/schemas/author";
+import Author from '@/sanity/schemas/author'
 
 export default defineType({
   name: 'article',
@@ -34,7 +34,7 @@ export default defineType({
           title: 'Alt',
           name: 'alt',
           type: 'string',
-        }
+        },
       ],
     }),
     defineField({
@@ -86,9 +86,7 @@ export default defineType({
       media: 'poster',
     },
     prepare({ title, media, author }) {
-      const subtitles = [
-        author && `by ${author}`,
-      ].filter(Boolean)
+      const subtitles = [author && `by ${author}`].filter(Boolean)
 
       return { title, media, subtitle: subtitles.join(' ') }
     },

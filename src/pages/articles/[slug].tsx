@@ -1,30 +1,34 @@
-import {PortableText, PortableTextReactComponents} from "@portabletext/react";
+import { PortableText, PortableTextReactComponents } from '@portabletext/react'
+import { SlashIcon } from '@radix-ui/react-icons'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 import { useLiveQuery } from 'next-sanity/preview'
+import React from 'react'
 
-import PageHOC from "@/components/PageHOC";
-import {SanityImage} from "@/components/SanityImage";
-import type { SharedPageProps } from '@/pages/_app'
-import {articleBySlugQuery, articleSlugsQuery, getArticle} from "@/sanity/lib/queries/article";
-import { readToken } from '@/sanity/lib/sanity.api'
-import { getClient } from '@/sanity/lib/sanity.client'
-import {urlForImage} from "@/sanity/lib/sanity.image";
-import {Article} from "@/sanity/types";
-import {formatDate} from "@/src/utils";
-
-import styles from './styles.module.css'
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/breadcrumb";
-import {SlashIcon} from "@radix-ui/react-icons";
-import React from "react";
+  BreadcrumbSeparator,
+} from '@/components/breadcrumb'
+import PageHOC from '@/components/PageHOC'
+import { SanityImage } from '@/components/SanityImage'
+import type { SharedPageProps } from '@/pages/_app'
+import {
+  articleBySlugQuery,
+  articleSlugsQuery,
+  getArticle,
+} from '@/sanity/lib/queries/article'
+import { readToken } from '@/sanity/lib/sanity.api'
+import { getClient } from '@/sanity/lib/sanity.client'
+import { urlForImage } from '@/sanity/lib/sanity.image'
+import { Article } from '@/sanity/types'
+import { formatDate } from '@/src/utils'
+
+import styles from './styles.module.css'
 
 interface Query {
   [key: string]: string
@@ -32,12 +36,12 @@ interface Query {
 
 export const getStaticProps: GetStaticProps<
   SharedPageProps & {
-  article: Article
-},
+    article: Article
+  },
   Query
 > = async ({ draftMode = false, params = {} }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const article = await getArticle(client, params.slug);
+  const article = await getArticle(client, params.slug)
 
   if (!article) {
     return {
@@ -70,8 +74,8 @@ export default function ProjectSlugRoute(
   })
 
   const {
-    poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } }
-  } = article;
+    poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } },
+  } = article
 
   return (
     <PageHOC>
@@ -79,8 +83,9 @@ export default function ProjectSlugRoute(
         className={`relative h-[32rem] w-full bg-cover bg-no-repeat`}
         style={{
           backgroundImage: `url(${urlForImage(article.poster)})`,
-          backgroundPosition: `${(hotspot.x - crop.left) *
-          100}% ${(hotspot.y - crop.top) * 100}%`
+          backgroundPosition: `${
+            (hotspot.x - crop.left) * 100
+          }% ${(hotspot.y - crop.top) * 100}%`,
         }}
       >
         <div className={styles.headerContent}>
@@ -116,8 +121,11 @@ export default function ProjectSlugRoute(
             </BreadcrumbList>
           </Breadcrumb>
           <article className="prose lg:prose-lg max-w-none">
-            <PortableText value={article.content} components={myPortableTextComponents} />
-            <div className="block antialiased font-sans text-base leading-relaxed text-inherit w-full md:w-10/12 font-normal !text-gray-500" >
+            <PortableText
+              value={article.content}
+              components={myPortableTextComponents}
+            />
+            <div className="block antialiased font-sans text-base leading-relaxed text-inherit w-full md:w-10/12 font-normal !text-gray-500">
               Edited {formatDate(article._updatedAt)}
             </div>
           </article>
@@ -127,7 +135,11 @@ export default function ProjectSlugRoute(
                 <div className="h-full mb-3 md:mb-0 w-full max-h-[4rem] max-w-[4rem] md:max-w-[6rem] md:max-h-[6rem] rounded-lg pt-2">
                   <Image
                     className="rounded-2xl"
-                    src={urlForImage(article.author.picture).height(300).width(300).fit('crop').url()}
+                    src={urlForImage(article.author.picture)
+                      .height(300)
+                      .width(300)
+                      .fit('crop')
+                      .url()}
                     height={300}
                     width={300}
                     alt={article.author.picture.alt}
@@ -137,7 +149,9 @@ export default function ProjectSlugRoute(
                   <h5 className="text-lg font-medium text-gray-800 dark:text-gray-300 mb-1">
                     {article.author.name}
                   </h5>
-                  {article.author.about && <p className="mb-3">{article.author.about}</p>}
+                  {article.author.about && (
+                    <p className="mb-3">{article.author.about}</p>
+                  )}
                   <Link
                     className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 "
                     href={`/author/${article.author.slug.current}`}

@@ -1,27 +1,31 @@
-import {PortableText, PortableTextReactComponents} from "@portabletext/react";
+import { PortableText, PortableTextReactComponents } from '@portabletext/react'
+import { SlashIcon } from '@radix-ui/react-icons'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 import { useLiveQuery } from 'next-sanity/preview'
-import React from "react";
+import React from 'react'
 
-import PageHOC from "@/components/PageHOC";
-import {SanityImage} from "@/components/SanityImage";
-import type { SharedPageProps } from '@/pages/_app'
-import {getTravel, travelBySlugQuery, travelsSlugsQuery} from "@/sanity/lib/queries/travel";
-import { readToken } from '@/sanity/lib/sanity.api'
-import { getClient } from '@/sanity/lib/sanity.client'
-import {urlForImage} from "@/sanity/lib/sanity.image";
-import {Travel as TravelType} from "@/sanity/types";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@/components/breadcrumb";
-import {SlashIcon} from "@radix-ui/react-icons";
+  BreadcrumbSeparator,
+} from '@/components/breadcrumb'
+import PageHOC from '@/components/PageHOC'
+import { SanityImage } from '@/components/SanityImage'
+import type { SharedPageProps } from '@/pages/_app'
+import {
+  getTravel,
+  travelBySlugQuery,
+  travelsSlugsQuery,
+} from '@/sanity/lib/queries/travel'
+import { readToken } from '@/sanity/lib/sanity.api'
+import { getClient } from '@/sanity/lib/sanity.client'
+import { urlForImage } from '@/sanity/lib/sanity.image'
+import { Travel as TravelType } from '@/sanity/types'
 
 interface Query {
   [key: string]: string
@@ -29,12 +33,12 @@ interface Query {
 
 export const getStaticProps: GetStaticProps<
   SharedPageProps & {
-  travel: TravelType
-},
+    travel: TravelType
+  },
   Query
 > = async ({ draftMode = false, params = {} }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const travel = await getTravel(client, params.slug);
+  const travel = await getTravel(client, params.slug)
 
   if (!travel) {
     return {
@@ -67,21 +71,22 @@ export default function ProjectSlugRoute(
   })
 
   const {
-    poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } }
-  } = travel;
+    poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } },
+  } = travel
 
-  console.log("travel", travel);
+  console.log('travel', travel)
   return (
     <PageHOC>
       <div
         className={`relative h-[32rem] w-full bg-cover bg-no-repeat`}
         style={{
           backgroundImage: `url(${urlForImage(travel.poster)})`,
-          backgroundPosition: `${(hotspot.x - crop.left) *
-          100}% ${(hotspot.y - crop.top) * 100}%`
+          backgroundPosition: `${
+            (hotspot.x - crop.left) * 100
+          }% ${(hotspot.y - crop.top) * 100}%`,
         }}
       >
-        <div >
+        <div>
           <div className="grid h-[32rem] px-8">
             <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
               <h1 className="antialiased tracking-normal font-sans text-5xl font-semibold leading-tight text-white line-clamp-2">
@@ -115,14 +120,28 @@ export default function ProjectSlugRoute(
           </Breadcrumb>
           <div className="mx-auto grid lg:grid-cols-[20%_80%] gap-10">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Activity</p>
-              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">{travel.activity}</h6>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Trip Length</p>
-              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">{travel.tripLength}</h6>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Group Size</p>
-              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">{travel.groupSize}</h6>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Activity
+              </p>
+              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">
+                {travel.activity}
+              </h6>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Trip Length
+              </p>
+              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">
+                {travel.tripLength}
+              </h6>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Group Size
+              </p>
+              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">
+                {travel.groupSize}
+              </h6>
               <p className="text-sm text-gray-500 dark:text-gray-400">Price</p>
-              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">{travel.price}</h6>
+              <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">
+                {travel.price}
+              </h6>
               <div className="mb-10">
                 <Link
                   className="flex items-center"
@@ -130,7 +149,11 @@ export default function ProjectSlugRoute(
                 >
                   <Image
                     className="rounded-full"
-                    src={urlForImage(travel.guide.picture).height(96).width(96).fit('crop').url()}
+                    src={urlForImage(travel.guide.picture)
+                      .height(96)
+                      .width(96)
+                      .fit('crop')
+                      .url()}
                     height={40}
                     width={40}
                     alt={travel.guide.picture.alt}
@@ -141,9 +164,12 @@ export default function ProjectSlugRoute(
                 </Link>
               </div>
             </div>
-            <div >
+            <div>
               <article className="prose lg:prose-lg">
-                <PortableText value={travel.content} components={myPortableTextComponents} />
+                <PortableText
+                  value={travel.content}
+                  components={myPortableTextComponents}
+                />
               </article>
             </div>
           </div>

@@ -1,7 +1,8 @@
+import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import Image from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
-import {SanityImageSource} from "@sanity/image-url/lib/types/types";
-import {getSanityImageConfig} from "@/sanity/lib/sanity.client";
+
+import { getSanityImageConfig } from '@/sanity/lib/sanity.client'
 
 interface Props {
   asset: SanityImageSource

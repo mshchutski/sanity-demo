@@ -1,5 +1,5 @@
-import groq from 'groq';
-import {SanityClient} from "next-sanity";
+import groq from 'groq'
+import { SanityClient } from 'next-sanity'
 
 export async function getHeaderCarousel(client: SanityClient): Promise<any[]> {
   return await client.fetch(headerCarouselQuery)
@@ -13,4 +13,4 @@ const fields = groq`
   "travel": travel->{title, poster, slug},
 `
 
-export const headerCarouselQuery = groq`*[_type == "homeCarousel"]{${fields}}`;
+export const headerCarouselQuery = groq`*[_type == "homeCarousel"]{${fields}}`

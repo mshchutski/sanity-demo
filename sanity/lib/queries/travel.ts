@@ -1,6 +1,6 @@
-import {groq, SanityClient} from "next-sanity";
+import { groq, SanityClient } from 'next-sanity'
 
-import {Travel} from "@/sanity/types";
+import { Travel } from '@/sanity/types'
 
 const travelFields = groq`
   _id,
@@ -29,7 +29,7 @@ export async function getTravel(
   })
 }
 
-export const travelsQuery = groq`*[_type == "travel" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)`;
+export const travelsQuery = groq`*[_type == "travel" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)`
 
 export async function getAllTravels(client: SanityClient): Promise<Travel[]> {
   return await client.fetch(travelsQuery)

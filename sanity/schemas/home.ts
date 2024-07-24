@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-import Travel from "@/sanity/schemas/travel";
+import Travel from '@/sanity/schemas/travel'
 
 export default defineType({
   name: 'homeCarousel',

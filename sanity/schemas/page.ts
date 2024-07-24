@@ -34,7 +34,7 @@ export default defineType({
           title: 'Alt',
           name: 'alt',
           type: 'string',
-        }
+        },
       ],
     }),
     defineField({

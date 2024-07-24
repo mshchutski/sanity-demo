@@ -1,5 +1,5 @@
-import {groq, SanityClient} from "next-sanity";
-import {Article} from "@/sanity/types";
+import { groq, SanityClient } from 'next-sanity'
+import { Article } from '@/sanity/types'
 
 const articleFields = groq`
   _id,
@@ -13,7 +13,6 @@ const articleFields = groq`
   "author": author->{name, about, picture, slug},
 `
 
-
 export const articleBySlugQuery = groq`*[_type == "article" && slug.current == $slug][0]{${articleFields}}`
 
 export async function getArticle(
@@ -25,10 +24,12 @@ export async function getArticle(
   })
 }
 
-export const recentArticlesQuery = groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)[0..3]`;
-export const articlesQuery = groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)`;
+export const recentArticlesQuery = groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)[0..3]`
+export const articlesQuery = groq`*[_type == "article" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)`
 
-export async function getRecentArticles(client: SanityClient): Promise<Article[]> {
+export async function getRecentArticles(
+  client: SanityClient,
+): Promise<Article[]> {
   return await client.fetch(recentArticlesQuery)
 }
 

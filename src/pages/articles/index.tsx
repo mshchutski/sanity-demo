@@ -1,25 +1,24 @@
 'use client'
 
-import {useLiveQuery} from "@sanity/preview-kit";
-import {GetStaticProps, InferGetStaticPropsType} from "next";
-import React from "react";
+import { useLiveQuery } from '@sanity/preview-kit'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import React from 'react'
 
-import {ArticleCard} from "@/components/ArticleCard";
-import PageHOC from "@/components/PageHOC";
-import {SharedPageProps} from "@/pages/_app";
-import {articlesQuery, getAllArticles} from "@/sanity/lib/queries/article";
-import {readToken} from "@/sanity/lib/sanity.api";
-import {getClient} from "@/sanity/lib/sanity.client";
-import {Article as ArticleType} from "@/sanity/types";
-
+import { ArticleCard } from '@/components/ArticleCard'
+import PageHOC from '@/components/PageHOC'
+import { SharedPageProps } from '@/pages/_app'
+import { articlesQuery, getAllArticles } from '@/sanity/lib/queries/article'
+import { readToken } from '@/sanity/lib/sanity.api'
+import { getClient } from '@/sanity/lib/sanity.client'
+import { Article as ArticleType } from '@/sanity/types'
 
 export const getStaticProps: GetStaticProps<
   SharedPageProps & {
-  articles: ArticleType[]
-}
+    articles: ArticleType[]
+  }
 > = async ({ draftMode = false }) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const articles = await getAllArticles(client);
+  const articles = await getAllArticles(client)
 
   return {
     props: {

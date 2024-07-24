@@ -7,7 +7,7 @@ export async function getCards(client: SanityClient): Promise<any[]> {
   return await client.fetch(cardsQuery)
 }
 
-export const cardsQuery = groq`*[_type == "card"] | order(_createdAt desc)`;
+export const cardsQuery = groq`*[_type == "card"] | order(_createdAt desc)`
 
 export const getCardsQuery = groq`
     *[_type == 'card']

@@ -1,8 +1,8 @@
 import '@/styles/global.css'
 
 import type { AppProps } from 'next/app'
+import { Inter as FontSans } from 'next/font/google'
 import { lazy } from 'react'
-import { Inter as FontSans } from "next/font/google"
 
 export interface SharedPageProps {
   draftMode: boolean
@@ -12,8 +12,8 @@ export interface SharedPageProps {
 const PreviewProvider = lazy(() => import('@/components/PreviewProvider'))
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
+  subsets: ['latin'],
+  variable: '--font-sans',
 })
 
 export default function App({

@@ -2,9 +2,9 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import {Doc} from "@sanity/mutator";
+import { Doc } from '@sanity/mutator'
 import { visionTool } from '@sanity/vision'
-import {defineConfig} from 'sanity'
+import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import {
   defineUrlResolver,
@@ -33,10 +33,10 @@ const iframeOptions = {
 async function getPreviewUrl(doc: Doc, type: string) {
   return (doc?.slug as any)?.current
     ? `${
-      process.env.NEXT_PUBLIC_VERCEL_URL ||
-      window.location.protocol + '//' + window.location.host
-    }/${type}/${(doc?.slug as any).current}`
-    : `${process.env.NEXT_PUBLIC_VERCEL_URL || window.location.host}`;
+        process.env.NEXT_PUBLIC_VERCEL_URL ||
+        window.location.protocol + '//' + window.location.host
+      }/${type}/${(doc?.slug as any).current}`
+    : `${process.env.NEXT_PUBLIC_VERCEL_URL || window.location.host}`
 }
 
 export default defineConfig({
@@ -69,7 +69,7 @@ export default defineConfig({
                 })
 
                 .title('Preview'),
-            ]);
+            ])
 
           case `author`:
             return S.document().views([
@@ -84,7 +84,7 @@ export default defineConfig({
                 })
 
                 .title('Preview'),
-            ]);
+            ])
 
           case `travels`:
             return S.document().views([
@@ -99,7 +99,7 @@ export default defineConfig({
                 })
 
                 .title('Preview'),
-            ]);
+            ])
 
           default:
             return S.document().views([
@@ -107,7 +107,7 @@ export default defineConfig({
               S.view.form(),
               // Preview
               S.view.component(Iframe).options(iframeOptions).title('Preview'),
-            ]);
+            ])
         }
       },
     }),
