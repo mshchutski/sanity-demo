@@ -47,17 +47,29 @@ export default function IndexPage(
         <Carousel opts={{ loop: true }}>
           <CarouselContent >
             {headerCarousel.map((item) => {
+              const {
+                poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } }
+              } = item.travel;
+
               return (
-                <CarouselItem className="relative min-h-[32rem] w-full bg-cover bg-no-repeat" key={item._id} style={{
-                  backgroundImage: `url(${urlForImage(item.image).url()})`,
-                  backgroundPosition: 'center center',
+                <CarouselItem className="relative min-h-[42rem] w-full bg-cover bg-no-repeat" key={item._id} style={{
+                  backgroundImage: `url(${urlForImage(item.travel.poster)})`,
+                  backgroundPosition: `${(hotspot.x - crop.left) *
+                  100}% ${(hotspot.y - crop.top) * 100}%`,
                 }}>
                   <div className="container">
-                    <div className="absolute bottom-10 bg-white mx-auto px-8 h-[10rem]">
-                      <h2 className="text-4xl mt-8 mb-6">
-                        {item.title}
+                    <div className="absolute bottom-10 bg-white mx-auto px-8 py-6">
+                      <h2 className="text-4xl mb-2">
+                        {item.travel.title}
                       </h2>
-                      <p>{item.desc}</p>
+                      <p className="mb-4">{item.subTitle}</p>
+                      <div>
+                        <Button asChild className="bg-yellow-300 text-black shadow hover:bg-yellow-300/90">
+                          <Link href={`/travels/${item.travel.slug.current}`}>
+                            View trip
+                          </Link>
+                        </Button>
+                      </div>
                     </div>
                   </div>
 

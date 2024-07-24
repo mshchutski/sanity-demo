@@ -15,6 +15,16 @@ import {Article} from "@/sanity/types";
 import {formatDate} from "@/src/utils";
 
 import styles from './styles.module.css'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/breadcrumb";
+import {SlashIcon} from "@radix-ui/react-icons";
+import React from "react";
 
 interface Query {
   [key: string]: string
@@ -86,6 +96,25 @@ export default function ProjectSlugRoute(
 
       <section className="pt-12 pb-16 px-8">
         <div className="mx-auto max-w-screen-md">
+          <Breadcrumb className="mb-10">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <SlashIcon />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/articles">Articles</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <SlashIcon />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>{article.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <article className="prose lg:prose-lg max-w-none">
             <PortableText value={article.content} components={myPortableTextComponents} />
             <div className="block antialiased font-sans text-base leading-relaxed text-inherit w-full md:w-10/12 font-normal !text-gray-500" >

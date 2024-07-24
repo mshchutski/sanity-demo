@@ -5,4 +5,12 @@ export async function getHeaderCarousel(client: SanityClient): Promise<any[]> {
   return await client.fetch(headerCarouselQuery)
 }
 
-export const headerCarouselQuery = groq`*[_type == "headerCarousel"] | order(_createdAt desc)`;
+const fields = groq`
+  _id,
+  _updatedAt,
+  _createdAt,
+  subTitle,
+  "travel": travel->{title, poster, slug},
+`
+
+export const headerCarouselQuery = groq`*[_type == "homeCarousel"]{${fields}}`;

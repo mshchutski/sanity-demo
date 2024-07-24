@@ -48,7 +48,7 @@ export default function AboutUsPage(
     <PageHOC>
       <div className="px-8">
         <div className="w-full max-w-screen-xl mx-auto">
-          <section className="mt-28 mb-12">
+          <section className="mt-22 mb-12">
             <h2 className="text-3xl mt-8 mb-1 font-bold">Our Contributors</h2>
             <span className="italic block text-sm text-gray-500 mb-6">Meet the outstanding individuals responsible for bringing you the most compelling stories across the globe. </span>
             <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -57,7 +57,7 @@ export default function AboutUsPage(
               ))}
             </div>
           </section>
-          <section className="mt-28 mb-12">
+          <section className="mt-22 mb-12">
             <h2 className="text-3xl mt-8 mb-1 font-bold">WKND Guides</h2>
             <span className="italic block text-sm text-gray-500 mb-6">Meet our extraordinary travel guides. When you travel with a certified WKND guide you gain access to attractions and perspectives not found on the pages of a guide book.</span>
             <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">

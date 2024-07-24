@@ -13,6 +13,15 @@ import { readToken } from '@/sanity/lib/sanity.api'
 import { getClient } from '@/sanity/lib/sanity.client'
 import {urlForImage} from "@/sanity/lib/sanity.image";
 import {Travel as TravelType} from "@/sanity/types";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/breadcrumb";
+import {SlashIcon} from "@radix-ui/react-icons";
 
 interface Query {
   [key: string]: string
@@ -85,7 +94,26 @@ export default function ProjectSlugRoute(
 
       <section className="pt-12 pb-16 px-8">
         <div className="mx-auto max-w-screen-lg">
-          <div className="mx-auto grid grid-cols-[20%_80%] gap-10">
+          <Breadcrumb className="mb-10">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <SlashIcon />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/travels">Travels</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <SlashIcon />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbPage>{travel.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="mx-auto grid lg:grid-cols-[20%_80%] gap-10">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Activity</p>
               <h6 className="mb-10 text-xl font-bold text-gray-900 dark:text-white">{travel.activity}</h6>

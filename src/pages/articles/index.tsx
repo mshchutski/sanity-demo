@@ -39,7 +39,7 @@ export default function ArticlesPage(
     <PageHOC>
       <div className="px-8">
         <div className="w-full max-w-screen-xl mx-auto">
-          <section className="mt-28 mb-12">
+          <section className="mt-22 mb-12">
             <h2 className="text-3xl mt-8 mb-6 font-bold">All Articles</h2>
             <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
               {articles.map((article, index) => (

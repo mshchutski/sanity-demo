@@ -68,6 +68,116 @@ export type Geopoint = {
   alt?: number
 }
 
+export type Article = {
+  _id: string
+  _type: 'article'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  slug?: Slug
+  poster?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  date?: string
+  author?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'author'
+  }
+}
+
+export type Author = {
+  _id: string
+  _type: 'author'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  name?: string
+  position?: string
+  about?: string
+  slug?: Slug
+  picture?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+}
+
+export type HomeCarousel = {
+  _id: string
+  _type: 'homeCarousel'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  travel?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'travel'
+  }
+  subTitle?: string
+}
+
 export type Travel = {
   _id: string
   _type: 'travel'
@@ -151,166 +261,9 @@ export type Guide = {
   _rev: string
   name?: string
   position?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  about?: string
   slug?: Slug
   picture?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-}
-
-export type Article = {
-  _id: string
-  _type: 'article'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  poster?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  content?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: 'span'
-          _key: string
-        }>
-        style?:
-          | 'normal'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'blockquote'
-        listItem?: 'bullet' | 'number'
-        markDefs?: Array<{
-          href?: string
-          _type: 'link'
-          _key: string
-        }>
-        level?: number
-        _type: 'block'
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        caption?: string
-        alt?: string
-        _type: 'image'
-        _key: string
-      }
-  >
-  date?: string
-  author?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'author'
-  }
-}
-
-export type Author = {
-  _id: string
-  _type: 'author'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name?: string
-  position?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  slug?: Slug
-  picture?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-}
-
-export type Slug = {
-  _type: 'slug'
-  current?: string
-  source?: string
-}
-
-export type HeaderCarousel = {
-  _id: string
-  _type: 'headerCarousel'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  desc?: string
-  image?: {
     asset?: {
       _ref: string
       _type: 'reference'
@@ -381,27 +334,33 @@ export type SanityImageMetadata = {
   isOpaque?: boolean
 }
 
+export type Slug = {
+  _type: 'slug'
+  current?: string
+  source?: string
+}
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | Travel
-  | Guide
   | Article
   | Author
-  | Slug
-  | HeaderCarousel
+  | HomeCarousel
+  | Travel
+  | Guide
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
+  | Slug
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ../sanity-demo/sanity/lib/queries/article.ts
 // Variable: articleBySlugQuery
-// Query: *[_type == "article" && slug.current == $slug][0]{  _id,  title,  date,  _updatedAt,  _createdAt,  poster,  content,  "slug": slug.current,  "author": author->{name, details, picture, slug},}
+// Query: *[_type == "article" && slug.current == $slug][0]{  _id,  title,  date,  _updatedAt,  _createdAt,  poster,  content,  "slug": slug.current,  "author": author->{name, about, picture, slug},}
 export type ArticleBySlugQueryResult = {
   _id: string
   title: string | null
@@ -465,24 +424,7 @@ export type ArticleBySlugQueryResult = {
   slug: string | null
   author: {
     name: string | null
-    details: Array<{
-      children?: Array<{
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }>
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-      listItem?: 'bullet' | 'number'
-      markDefs?: Array<{
-        href?: string
-        _type: 'link'
-        _key: string
-      }>
-      level?: number
-      _type: 'block'
-      _key: string
-    }> | null
+    about: string | null
     picture: {
       asset?: {
         _ref: string
@@ -647,7 +589,7 @@ export type ArticlesQueryResult = Array<{
 export type ArticleSlugsQueryResult = Array<string | null>
 // Source: ../sanity-demo/sanity/lib/queries/author.ts
 // Variable: authorBySlugQuery
-// Query: *[_type == "author" && slug.current == $slug][0]{  _id,  _updatedAt,  _createdAt,  _ref,  name,  picture,  details,  "slug": slug.current,  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, date, "slug": slug.current},}
+// Query: *[_type == "author" && slug.current == $slug][0]{  _id,  _updatedAt,  _createdAt,  _ref,  name,  picture,  about,  "slug": slug.current,  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, date, "slug": slug.current},}
 export type AuthorBySlugQueryResult = {
   _id: string
   _updatedAt: string
@@ -666,24 +608,7 @@ export type AuthorBySlugQueryResult = {
     alt?: string
     _type: 'image'
   } | null
-  details: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }> | null
+  about: string | null
   slug: string | null
   articles: Array<{
     _id: string
@@ -723,24 +648,7 @@ export type AuthorsQueryResult = Array<{
   _rev: string
   name?: string
   position?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  about?: string
   slug?: Slug
   picture?: {
     asset?: {
@@ -777,24 +685,7 @@ export type GuidesQueryResult = Array<{
   _rev: string
   name?: string
   position?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  about?: string
   slug?: Slug
   picture?: {
     asset?: {
@@ -819,24 +710,7 @@ export type GuideBySlugQueryResult = {
   _rev: string
   name?: string
   position?: string
-  details?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  about?: string
   slug?: Slug
   picture?: {
     asset?: {
@@ -856,27 +730,28 @@ export type GuideBySlugQueryResult = {
 export type GuideSlugsQueryResult = Array<string | null>
 // Source: ../sanity-demo/sanity/lib/queries/headerCarousel.ts
 // Variable: headerCarouselQuery
-// Query: *[_type == "headerCarousel"] | order(_createdAt desc)
+// Query: *[_type == "homeCarousel"]{  _id,  _updatedAt,  _createdAt,  subTitle,  "travel": travel->{title, poster, slug},}
 export type HeaderCarouselQueryResult = Array<{
   _id: string
-  _type: 'headerCarousel'
-  _createdAt: string
   _updatedAt: string
-  _rev: string
-  title?: string
-  desc?: string
-  image?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
+  _createdAt: string
+  subTitle: string | null
+  travel: {
+    title: string | null
+    poster: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    } | null
+    slug: Slug | null
+  } | null
 }>
 // Source: ../sanity-demo/sanity/lib/queries/posts.ts
 // Variable: postsQuery
@@ -890,7 +765,7 @@ export type PostBySlugQueryResult = null
 export type PostSlugsQueryResult = Array<never>
 // Source: ../sanity-demo/sanity/lib/queries/travel.ts
 // Variable: travelBySlugQuery
-// Query: *[_type == "travel" && slug.current == $slug][0]{  _id,  title,  date,  _updatedAt,  _createdAt,  poster,  content,  activity,  tripLength,  price,  groupSize,  "slug": slug.current,  "guide": guide->{name, details, picture, slug},}
+// Query: *[_type == "travel" && slug.current == $slug][0]{  _id,  title,  date,  _updatedAt,  _createdAt,  poster,  content,  activity,  tripLength,  price,  groupSize,  "slug": slug.current,  "guide": guide->{name, about, picture, slug},}
 export type TravelBySlugQueryResult = {
   _id: string
   title: string | null
@@ -958,24 +833,7 @@ export type TravelBySlugQueryResult = {
   slug: string | null
   guide: {
     name: string | null
-    details: Array<{
-      children?: Array<{
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }>
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-      listItem?: 'bullet' | 'number'
-      markDefs?: Array<{
-        href?: string
-        _type: 'link'
-        _key: string
-      }>
-      level?: number
-      _type: 'block'
-      _key: string
-    }> | null
+    about: string | null
     picture: {
       asset?: {
         _ref: string
@@ -991,82 +849,6 @@ export type TravelBySlugQueryResult = {
     slug: Slug | null
   } | null
 } | null
-// Variable: recentTravelsQuery
-// Query: *[_type == "travel" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)[0..3]
-export type RecentTravelsQueryResult = Array<{
-  _id: string
-  _type: 'travel'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  slug?: Slug
-  date?: string
-  guide?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'guide'
-  }
-  poster?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  activity?: string
-  tripLength?: string
-  groupSize?: string
-  price?: string
-  content?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>
-          text?: string
-          _type: 'span'
-          _key: string
-        }>
-        style?:
-          | 'blockquote'
-          | 'h1'
-          | 'h2'
-          | 'h3'
-          | 'h4'
-          | 'h5'
-          | 'h6'
-          | 'normal'
-        listItem?: 'bullet' | 'number'
-        markDefs?: Array<{
-          href?: string
-          _type: 'link'
-          _key: string
-        }>
-        level?: number
-        _type: 'block'
-        _key: string
-      }
-    | {
-        asset?: {
-          _ref: string
-          _type: 'reference'
-          _weak?: boolean
-          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-        }
-        hotspot?: SanityImageHotspot
-        crop?: SanityImageCrop
-        caption?: string
-        alt?: string
-        _type: 'image'
-        _key: string
-      }
-  >
-}>
 // Variable: travelsQuery
 // Query: *[_type == "travel" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)
 export type TravelsQueryResult = Array<{

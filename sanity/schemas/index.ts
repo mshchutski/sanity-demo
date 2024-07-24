@@ -1,13 +1,13 @@
 import { SchemaTypeDefinition } from 'sanity'
 
-import headerCarousel from "@/sanity/schemas/home/headerCarousel";
 import articles from "@/sanity/schemas/articles";
 import author from "@/sanity/schemas/author";
-import travel from "@/sanity/schemas/travel";
 import guide from "@/sanity/schemas/guide";
+import home from "@/sanity/schemas/home";
+import travel from "@/sanity/schemas/travel";
 
 export const schemaTypes = [
-  headerCarousel,
+  home,
   articles,
   author,
   travel,

@@ -1,10 +1,10 @@
 'use client'
 
 import Link from "next/link";
-
-import Logo from "@/components/Logo";
 import {usePathname} from "next/navigation";
 import {useEffect, useState} from "react";
+
+import Logo from "@/components/Logo";
 import {NAV_LINKS} from "@/utils/constants";
 
 export default function Header(
