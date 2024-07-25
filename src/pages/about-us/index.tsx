@@ -6,6 +6,7 @@ import React from 'react'
 
 import { AuthorCard } from '@/components/AuthorCard'
 import PageHOC from '@/components/PageHOC'
+import { Section } from '@/components/SectionElements'
 import { SharedPageProps } from '@/pages/_app'
 import { authorsQuery, getAllAuthors } from '@/sanity/lib/queries/author'
 import { getAllGuides, guidesQuery } from '@/sanity/lib/queries/guide'
@@ -23,7 +24,6 @@ export const getStaticProps: GetStaticProps<
   const authors = await getAllAuthors(client)
   const guides = await getAllGuides(client)
 
-  console.log('guides', guides)
   return {
     props: {
       draftMode,
@@ -42,33 +42,31 @@ export default function AboutUsPage(
 
   return (
     <PageHOC>
-      <div className="px-8">
+      <div className="container">
         <div className="w-full max-w-screen-xl mx-auto">
-          <section className="mt-22 mb-12">
-            <h2 className="text-3xl mt-8 mb-1 font-bold">Our Contributors</h2>
-            <span className="italic block text-sm text-gray-500 mb-6">
-              Meet the outstanding individuals responsible for bringing you the
-              most compelling stories across the globe.{' '}
-            </span>
+          <Section
+            title="Our Contributors"
+            subTitle="Meet the outstanding individuals responsible for bringing you the
+              most compelling stories across the globe."
+          >
             <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
               {authors.map((author, index) => (
                 <AuthorCard author={author} key={index} />
               ))}
             </div>
-          </section>
-          <section className="mt-22 mb-12">
-            <h2 className="text-3xl mt-8 mb-1 font-bold">WKND Guides</h2>
-            <span className="italic block text-sm text-gray-500 mb-6">
-              Meet our extraordinary travel guides. When you travel with a
+          </Section>
+          <Section
+            title="WKND Guides"
+            subTitle=" Meet our extraordinary travel guides. When you travel with a
               certified WKND guide you gain access to attractions and
-              perspectives not found on the pages of a guide book.
-            </span>
+              perspectives not found on the pages of a guide book."
+          >
             <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
               {guides.map((author, index) => (
                 <AuthorCard author={author} key={index} isGuide />
               ))}
             </div>
-          </section>
+          </Section>
         </div>
       </div>
     </PageHOC>

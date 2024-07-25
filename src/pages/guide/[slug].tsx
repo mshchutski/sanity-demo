@@ -1,8 +1,8 @@
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Image from 'next/image'
 import { useLiveQuery } from 'next-sanity/preview'
+import React from 'react'
 
-import { Button } from '@/components/button'
+import { CustomImage } from '@/components/CustomImage'
 import PageHOC from '@/components/PageHOC'
 import type { SharedPageProps } from '@/pages/_app'
 import {
@@ -12,8 +12,8 @@ import {
 } from '@/sanity/lib/queries/guide'
 import { readToken } from '@/sanity/lib/sanity.api'
 import { getClient } from '@/sanity/lib/sanity.client'
-import { urlForImage } from '@/sanity/lib/sanity.image'
 import { Guide as GuideType } from '@/sanity/types'
+import { Routes } from '@/utils/constants'
 
 interface Query {
   [key: string]: string
@@ -34,13 +34,7 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  return {
-    props: {
-      draftMode,
-      token: draftMode ? readToken : '',
-      author,
-    },
-  }
+  return { props: { draftMode, token: draftMode ? readToken : '', author } }
 }
 
 export default function ProjectSlugRoute(
@@ -54,29 +48,14 @@ export default function ProjectSlugRoute(
     <PageHOC>
       <div>
         <header className="bg-gradient-to-b from-blue-800 to-slate-400 h-[22rem]" />
-        <div className="px-8">
+        <div className="container">
           <div className="w-full max-w-screen-md mx-auto -translate-y-24">
             <div>
-              <Image
-                className="w-40 rounded-xl"
-                src={urlForImage(author.picture)
-                  .height(300)
-                  .width(300)
-                  .fit('crop')
-                  .url()}
-                height={300}
-                width={300}
-                alt={author.picture.alt}
-              />
+              <CustomImage className="w-40 rounded-xl" image={author.picture} />
               <div className="flex mt-12 justify-between">
                 <h5 className="text-3xl">{author.name}</h5>
-                <Button color="gray">follow</Button>
               </div>
               <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2 mt-3">
-                  <p className="!text-gray-900 font-bold">323</p>
-                  <p className="!text-gray-500 font-normal">Trips</p>
-                </div>
                 <div className="flex items-center gap-2 mt-3">
                   <p className="!text-gray-900 font-bold">3.5k</p>
                   <p className="!text-gray-500 font-normal">Followers</p>
@@ -102,7 +81,7 @@ export const getStaticPaths = async () => {
   const slugs = await client.fetch(guideSlugsQuery)
 
   return {
-    paths: slugs?.map(({ slug }) => `/guide/${slug}`) || [],
+    paths: slugs?.map(({ slug }) => `${Routes.Guide}/${slug}`) || [],
     fallback: 'blocking',
   }
 }

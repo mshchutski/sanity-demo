@@ -130,7 +130,6 @@ export type Article = {
         _key: string
       }
   >
-  date?: string
   author?: {
     _ref: string
     _type: 'reference'
@@ -360,11 +359,10 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: ../sanity-demo/sanity/lib/queries/article.ts
 // Variable: articleBySlugQuery
-// Query: *[_type == "article" && slug.current == $slug][0]{  _id,  title,  date,  _updatedAt,  _createdAt,  poster,  content,  "slug": slug.current,  "author": author->{name, about, picture, slug},}
+// Query: *[_type == "article" && slug.current == $slug][0]{  _id,  title,  _updatedAt,  _createdAt,  poster,  content,  "slug": slug.current,  "author": author->{name, about, picture, slug},}
 export type ArticleBySlugQueryResult = {
   _id: string
   title: string | null
-  date: string | null
   _updatedAt: string
   _createdAt: string
   poster: {
@@ -504,7 +502,6 @@ export type RecentArticlesQueryResult = Array<{
         _key: string
       }
   >
-  date?: string
   author?: {
     _ref: string
     _type: 'reference'
@@ -576,7 +573,6 @@ export type ArticlesQueryResult = Array<{
         _key: string
       }
   >
-  date?: string
   author?: {
     _ref: string
     _type: 'reference'
@@ -631,7 +627,7 @@ export type AuthorBySlugQueryResult = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'author'
     } | null
-    date: string | null
+    date: null
     slug: string | null
   }>
 } | null

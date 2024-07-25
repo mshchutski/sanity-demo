@@ -10,6 +10,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -26,6 +27,7 @@ export default defineType({
       name: 'poster',
       title: 'Poster',
       type: 'image',
+      validation: (rule) => rule.required(),
       options: {
         hotspot: true,
       },
@@ -34,6 +36,11 @@ export default defineType({
           title: 'Alt',
           name: 'alt',
           type: 'string',
+          validation: (rule) => rule.required(),
+          initialValue: 'Image',
+          options: {
+            isHighlighted: true,
+          },
         },
       ],
     }),
@@ -66,16 +73,11 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'date',
-      title: 'Date',
-      type: 'datetime',
-      initialValue: () => new Date().toISOString(),
-    }),
-    defineField({
       name: 'author',
       title: 'Author',
       type: 'reference',
       to: [{ type: Author.name }],
+      validation: (rule) => rule.required(),
     }),
   ],
   preview: {

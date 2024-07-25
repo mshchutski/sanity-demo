@@ -10,6 +10,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -33,11 +34,13 @@ export default defineType({
       title: 'Guide',
       type: 'reference',
       to: [{ type: Guide.name }],
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'poster',
       title: 'Poster',
       type: 'image',
+      validation: (rule) => rule.required(),
       options: {
         hotspot: true,
       },

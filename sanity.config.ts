@@ -56,7 +56,7 @@ export default defineConfig({
       // https://www.sanity.io/docs/structure-builder-reference
       defaultDocumentNode: (S, { schemaType }) => {
         switch (schemaType) {
-          case `articles`:
+          case `article`:
             return S.document().views([
               S.view.form(),
               S.view
@@ -86,7 +86,7 @@ export default defineConfig({
                 .title('Preview'),
             ])
 
-          case `travels`:
+          case `travel`:
             return S.document().views([
               S.view.form(),
               S.view

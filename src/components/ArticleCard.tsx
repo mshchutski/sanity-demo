@@ -1,55 +1,34 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/button'
-import { urlForImage } from '@/sanity/lib/sanity.image'
+import { CustomImage } from '@/components/CustomImage'
+import { ArrowRightIcon } from '@/components/Icons'
+import { Article } from '@/sanity/types'
+import { Routes } from '@/utils/constants'
 
-export function ArticleCard({ article }: { article: any }) {
+export function ArticleCard({ article }: { article: Article }) {
+  const linkTo = Routes.Articles + '/' + article.slug.current
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <Link href={`/articles/${article.slug.current}`}>
-        <Image
-          className="w-full object-cover"
-          src={urlForImage(article.poster)
-            .height(300)
-            .width(300)
-            .fit('crop')
-            .url()}
-          height={300}
-          width={300}
-          alt={article.poster.alt}
-        />
-      </Link>
-      <div className="p-5">
-        <Link href={`/articles/${article.slug.current}`}>
-          <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1">
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow overflow-hidden">
+      <Link href={linkTo}>
+        <CustomImage image={article.poster} />
+        <div className="p-5">
+          <h5 className="text-lg font-bold tracking-tight text-gray-900 line-clamp-1">
             {article.title}
           </h5>
-        </Link>
-        <Button asChild size="sm">
-          <Link href={`/articles/${article.slug.current}`}>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="bg-transparent pl-0 text-gray-500 hover:bg-transparent hover:text-yellow-300"
+          >
             Read more
-            <svg
-              className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </Link>
-        </Button>
-      </div>
+            <ArrowRightIcon />
+          </Button>
+        </div>
+      </Link>
     </div>
   )
 }

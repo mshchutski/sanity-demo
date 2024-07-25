@@ -1,21 +1,15 @@
-import { PortableText, PortableTextReactComponents } from '@portabletext/react'
-import { SlashIcon } from '@radix-ui/react-icons'
+import { PortableText } from '@portabletext/react'
 import type { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useLiveQuery } from 'next-sanity/preview'
 import React from 'react'
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/breadcrumb'
+import { CustomImage } from '@/components/CustomImage'
+import { HeaderBanner } from '@/components/HeaderBanner'
+import { PageBreadcrumbs } from '@/components/PageBreadcrumbs'
 import PageHOC from '@/components/PageHOC'
-import { SanityImage } from '@/components/SanityImage'
+import { PortableTextComponents } from '@/components/PortableTextComponent'
+import { Section } from '@/components/SectionElements'
 import type { SharedPageProps } from '@/pages/_app'
 import {
   getTravel,
@@ -24,8 +18,8 @@ import {
 } from '@/sanity/lib/queries/travel'
 import { readToken } from '@/sanity/lib/sanity.api'
 import { getClient } from '@/sanity/lib/sanity.client'
-import { urlForImage } from '@/sanity/lib/sanity.image'
 import { Travel as TravelType } from '@/sanity/types'
+import { Routes } from '@/utils/constants'
 
 interface Query {
   [key: string]: string
@@ -46,22 +40,13 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
-  return {
-    props: {
-      draftMode,
-      token: draftMode ? readToken : '',
-      travel,
-    },
-  }
+  return { props: { draftMode, token: draftMode ? readToken : '', travel } }
 }
 
-const myPortableTextComponents: Partial<PortableTextReactComponents> = {
-  types: {
-    image: ({ value }) => {
-      return <SanityImage {...value} />
-    },
-  },
-}
+const BREADCRUMBS = [
+  { slug: Routes.Home, label: 'Home' },
+  { slug: Routes.Travels, label: 'Travels' },
+]
 
 export default function ProjectSlugRoute(
   props: InferGetStaticPropsType<typeof getStaticProps>,
@@ -70,54 +55,18 @@ export default function ProjectSlugRoute(
     slug: props.travel.slug,
   })
 
-  const {
-    poster: { crop = { left: 0, top: 0 }, hotspot = { x: 0.5, y: 0.5 } },
-  } = travel
+  const { guide } = travel
 
-  console.log('travel', travel)
   return (
     <PageHOC>
-      <div
-        className={`relative h-[32rem] w-full bg-cover bg-no-repeat`}
-        style={{
-          backgroundImage: `url(${urlForImage(travel.poster)})`,
-          backgroundPosition: `${
-            (hotspot.x - crop.left) * 100
-          }% ${(hotspot.y - crop.top) * 100}%`,
-        }}
-      >
-        <div>
-          <div className="grid h-[32rem] px-8">
-            <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-              <h1 className="antialiased tracking-normal font-sans text-5xl font-semibold leading-tight text-white line-clamp-2">
-                {travel.title}
-              </h1>
-            </div>
-          </div>
+      <HeaderBanner poster={travel.poster} title={travel.title} />
+      <div className="container">
+        <div className="w-full max-w-screen-xl mx-auto">
+          <PageBreadcrumbs items={[...BREADCRUMBS, { label: travel.title }]} />
         </div>
       </div>
-
-      <section className="pt-12 pb-16 px-8">
-        <div className="mx-auto max-w-screen-lg">
-          <Breadcrumb className="mb-10">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <SlashIcon />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/travels">Travels</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator>
-                <SlashIcon />
-              </BreadcrumbSeparator>
-              <BreadcrumbItem>
-                <BreadcrumbPage>{travel.title}</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+      <div className="mx-auto max-w-screen-lg">
+        <Section>
           <div className="mx-auto grid lg:grid-cols-[20%_80%] gap-10">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -145,21 +94,17 @@ export default function ProjectSlugRoute(
               <div className="mb-10">
                 <Link
                   className="flex items-center"
-                  href={`/guide/${travel.guide.slug.current}`}
+                  href={`${Routes.Guide}/${guide.slug.current}`}
                 >
-                  <Image
+                  <CustomImage
                     className="rounded-full"
-                    src={urlForImage(travel.guide.picture)
-                      .height(96)
-                      .width(96)
-                      .fit('crop')
-                      .url()}
+                    image={guide.picture}
                     height={40}
                     width={40}
-                    alt={travel.guide.picture.alt}
                   />
+
                   <h5 className="text-lg ml-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                    {travel.guide.name}
+                    {guide.name}
                   </h5>
                 </Link>
               </div>
@@ -168,13 +113,13 @@ export default function ProjectSlugRoute(
               <article className="prose lg:prose-lg">
                 <PortableText
                   value={travel.content}
-                  components={myPortableTextComponents}
+                  components={PortableTextComponents}
                 />
               </article>
             </div>
           </div>
-        </div>
-      </section>
+        </Section>
+      </div>
     </PageHOC>
   )
 }
@@ -184,7 +129,7 @@ export const getStaticPaths = async () => {
   const slugs = await client.fetch(travelsSlugsQuery)
 
   return {
-    paths: slugs?.map(({ slug }) => `/travels/${slug}`) || [],
+    paths: slugs?.map(({ slug }) => `${Routes.Travels}/${slug}`) || [],
     fallback: 'blocking',
   }
 }

@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/button'
-import { urlForImage } from '@/sanity/lib/sanity.image'
+import { CustomImage } from '@/components/CustomImage'
 import { Author as AuthorType, Guide as GuideType } from '@/sanity/types'
+import { Routes } from '@/utils/constants'
 
 export function AuthorCard({
   author,
@@ -13,35 +13,27 @@ export function AuthorCard({
   author: AuthorType | GuideType
   isGuide?: boolean
 }) {
+  const linkTo =
+    (isGuide ? Routes.Guide : Routes.Author) + '/' + author.slug.current
+
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex flex-col items-center pb-10 pt-4">
-        <Link href={`/author/${author.slug.current}`}>
-          <Image
-            className="w-24 h-24 mb-3 rounded-full shadow-lg"
-            src={urlForImage(author.picture)
-              .height(300)
-              .width(300)
-              .fit('crop')
-              .url()}
-            height={300}
-            width={300}
-            alt={author.picture.alt}
+      <div className="flex flex-col items-center pb-10 pt-8">
+        <Link href={linkTo}>
+          <CustomImage
+            image={author.picture}
+            className="w-32 h-32 mb-3 rounded-full shadow-lg"
           />
         </Link>
-        <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+        <h5 className="mb-1 text-xl font-medium text-gray-900">
           {author.name}
         </h5>
         <span className="text-sm text-gray-500 dark:text-gray-400">
           {author.position}
         </span>
         <div className="flex mt-4 md:mt-6">
-          <Button>
-            <Link
-              href={`${isGuide ? '/guide' : '/author'}/${author.slug.current}`}
-            >
-              More about me
-            </Link>
+          <Button asChild size="sm">
+            <Link href={linkTo}>More about me</Link>
           </Button>
         </div>
       </div>

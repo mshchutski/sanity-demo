@@ -1,10 +1,10 @@
 import { groq, SanityClient } from 'next-sanity'
+
 import { Article } from '@/sanity/types'
 
 const articleFields = groq`
   _id,
   title,
-  date,
   _updatedAt,
   _createdAt,
   poster,

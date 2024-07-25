@@ -1,11 +1,10 @@
-'use client'
-
 import { useLiveQuery } from '@sanity/preview-kit'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import React from 'react'
 
 import { ArticleCard } from '@/components/ArticleCard'
 import PageHOC from '@/components/PageHOC'
+import { Section } from '@/components/SectionElements'
 import { SharedPageProps } from '@/pages/_app'
 import { articlesQuery, getAllArticles } from '@/sanity/lib/queries/article'
 import { readToken } from '@/sanity/lib/sanity.api'
@@ -21,11 +20,7 @@ export const getStaticProps: GetStaticProps<
   const articles = await getAllArticles(client)
 
   return {
-    props: {
-      draftMode,
-      token: draftMode ? readToken : '',
-      articles,
-    },
+    props: { draftMode, token: draftMode ? readToken : '', articles },
   }
 }
 
@@ -36,16 +31,15 @@ export default function ArticlesPage(
 
   return (
     <PageHOC>
-      <div className="px-8">
+      <div className="container">
         <div className="w-full max-w-screen-xl mx-auto">
-          <section className="mt-22 mb-12">
-            <h2 className="text-3xl mt-8 mb-6 font-bold">All Articles</h2>
-            <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
+          <Section title="All Articles">
+            <div className="mx-auto grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-5">
               {articles.map((article, index) => (
                 <ArticleCard article={article} key={index} />
               ))}
             </div>
-          </section>
+          </Section>
         </div>
       </div>
     </PageHOC>

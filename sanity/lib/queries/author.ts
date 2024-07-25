@@ -10,7 +10,7 @@ const authorFields = groq`
   picture,
   about,
   "slug": slug.current,
-  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, date, "slug": slug.current},
+  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, slug},
 `
 
 export const authorBySlugQuery = groq`*[_type == "author" && slug.current == $slug][0]{${authorFields}}`
