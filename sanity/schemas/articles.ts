@@ -33,7 +33,8 @@ export default defineType({
       },
       fields: [
         {
-          title: 'Alt',
+          title: 'Alternative text',
+          description: 'Important for SEO and accessiblity.',
           name: 'alt',
           type: 'string',
           validation: (rule) => rule.required(),

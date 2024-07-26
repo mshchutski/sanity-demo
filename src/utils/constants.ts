@@ -5,6 +5,7 @@ export enum Routes {
   AboutUs = '/about-us',
   Author = '/author',
   Guide = '/guide',
+  FAQ = '/faqs',
 }
 
 export const NAV_LINKS = [
@@ -12,4 +13,5 @@ export const NAV_LINKS = [
   { title: 'Travels', slug: Routes.Travels },
   { title: 'Articles', slug: Routes.Articles },
   { title: 'About Us', slug: Routes.AboutUs },
+  { title: 'FAQs', slug: Routes.FAQ },
 ]

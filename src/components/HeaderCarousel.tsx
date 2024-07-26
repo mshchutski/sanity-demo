@@ -24,7 +24,7 @@ export default function HeaderCarousel({ items }: HeaderCarouselProps) {
     <div className="relative w-full">
       <Carousel
         opts={{ loop: true }}
-        plugins={[Autoplay({ delay: 4000 }), Fade()]}
+        plugins={[Autoplay({ delay: 114000 }), Fade()]}
       >
         <CarouselContent>
           {items.map(({ travel, _id, subTitle }) => {
@@ -46,8 +46,8 @@ export default function HeaderCarousel({ items }: HeaderCarouselProps) {
                   }% ${(hotspot.y - crop.top) * 100}%`,
                 }}
               >
-                <div className="container">
-                  <div className="absolute bottom-10 bg-white mx-auto px-8 py-6">
+                <div className="container w-full h-full relative flex">
+                  <div className="mt-auto w-full max-w-screen-md bg-white px-8 py-6 mb-10 top-auto">
                     <h2 className="text-4xl mb-2">{travel.title}</h2>
                     <p className="mb-4">{subTitle}</p>
                     <div>

@@ -19,7 +19,7 @@ export const PageBreadcrumbs: FC<PageBreadcrumbsProps> = ({ items }) => {
     <Breadcrumb className="mt-8 mb-10">
       <BreadcrumbList>
         {items.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <BreadcrumbItem>
               {item.slug ? (
                 <BreadcrumbLink href={item.slug}>{item.label}</BreadcrumbLink>
@@ -32,7 +32,7 @@ export const PageBreadcrumbs: FC<PageBreadcrumbsProps> = ({ items }) => {
                 <SlashIcon />
               </BreadcrumbSeparator>
             )}
-          </>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

@@ -292,9 +292,7 @@ const CarouselDots = React.forwardRef<
           type="button"
           key={index}
           onClick={() => onDotButtonClick(index)}
-          className={'w-2.5 h-2.5 rounded-full bg-gray-400 hover:bg-black cursor-pointer transform-all ease-in-out duration-100'.concat(
-            index === selectedIndex ? ' bg-black' : '',
-          )}
+          className={`w-2.5 h-2.5 rounded-full hover:bg-black cursor-pointer transform-all ease-in-out duration-100 ${index === selectedIndex ? 'bg-black' : 'bg-gray-400'}`}
         />
       ))}
     </div>

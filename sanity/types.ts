@@ -68,6 +68,36 @@ export type Geopoint = {
   alt?: number
 }
 
+export type FaqsPage = {
+  _id: string
+  _type: 'faqsPage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  poster?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  about?: string
+  phone?: string
+  email?: string
+  faqs?: Array<{
+    question?: string
+    answer?: string
+    _type: 'item'
+    _key: string
+  }>
+}
+
 export type Article = {
   _id: string
   _type: 'article'
@@ -345,6 +375,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | FaqsPage
   | Article
   | Author
   | HomeCarousel
@@ -669,6 +700,38 @@ export type GetCardsQueryResult = Array<never>
 // Variable: carouselQuery
 // Query: *[_type == "carousel"]
 export type CarouselQueryResult = Array<never>
+// Source: ../sanity-demo/sanity/lib/queries/faqsPage.ts
+// Variable: faqsPageQuery
+// Query: *[_type == "faqsPage" && wasDeleted != true && isDraft != true][0]
+export type FaqsPageQueryResult = {
+  _id: string
+  _type: 'faqsPage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  poster?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  about?: string
+  phone?: string
+  email?: string
+  faqs?: Array<{
+    question?: string
+    answer?: string
+    _type: 'item'
+    _key: string
+  }>
+} | null
 // Source: ../sanity-demo/sanity/lib/queries/guide.ts
 // Variable: guidesQuery
 // Query: *[_type == "guide" && wasDeleted != true && isDraft != true] | order(_updatedAt desc)

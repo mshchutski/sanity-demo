@@ -7,7 +7,7 @@ type SectionProps = {
 }
 
 export const Section: FC<SectionProps> = ({ title, subTitle, children }) => (
-  <section className="mt-22 mb-12">
+  <section className="mt-12 mb-12">
     {!!title && (
       <h2 className={`text-3xl mt-8 font-bold ${!!subTitle ? 'mb-1' : 'mb-6'}`}>
         {title}
