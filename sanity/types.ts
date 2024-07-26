@@ -585,7 +585,7 @@ export type ArticlesQueryResult = Array<{
 export type ArticleSlugsQueryResult = Array<string | null>
 // Source: ../sanity-demo/sanity/lib/queries/author.ts
 // Variable: authorBySlugQuery
-// Query: *[_type == "author" && slug.current == $slug][0]{  _id,  _updatedAt,  _createdAt,  _ref,  name,  picture,  about,  "slug": slug.current,  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, date, "slug": slug.current},}
+// Query: *[_type == "author" && slug.current == $slug][0]{  _id,  _updatedAt,  _createdAt,  _ref,  name,  picture,  about,  "slug": slug.current,  "articles": *[_type=='article' && references(^._id)]{_id, poster, title, author, slug},}
 export type AuthorBySlugQueryResult = {
   _id: string
   _updatedAt: string
@@ -627,8 +627,7 @@ export type AuthorBySlugQueryResult = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'author'
     } | null
-    date: null
-    slug: string | null
+    slug: Slug | null
   }>
 } | null
 // Variable: authorSlugsQuery

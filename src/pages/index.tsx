@@ -7,6 +7,7 @@ import { ArticleCard } from '@/components/ArticleCard'
 import { Button } from '@/components/button'
 import HeaderCarousel from '@/components/HeaderCarousel'
 import PageHOC from '@/components/PageHOC'
+import { Section } from '@/components/SectionElements'
 import type { SharedPageProps } from '@/pages/_app'
 import {
   getRecentArticles,
@@ -19,6 +20,7 @@ import {
 import { readToken } from '@/sanity/lib/sanity.api'
 import { getClient } from '@/sanity/lib/sanity.client'
 import type { Article, HomeCarousel } from '@/sanity/types'
+import { Routes } from '@/utils/constants'
 
 export const getStaticProps: GetStaticProps<
   SharedPageProps & {
@@ -55,11 +57,10 @@ export default function IndexPage(
   return (
     <PageHOC>
       <HeaderCarousel items={headerCarouselItems} />
-      <div className="px-8">
+      <div className="container">
         <div className="w-full max-w-screen-xl mx-auto py-4 md:py-8">
-          <section className="mt-16 mb-12">
-            <h2 className="text-3xl mt-8 mb-6 font-bold">Recent Articles</h2>
-            <div className="mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <Section title="Recent Articles">
+            <div className="mx-auto grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
               {recentArticles.map((article, index) => (
                 <ArticleCard article={article} key={index} />
               ))}
@@ -68,9 +69,9 @@ export default function IndexPage(
               asChild
               className="bg-yellow-300 text-black shadow hover:bg-yellow-300/90 mt-6"
             >
-              <Link href={`/articles`}>All articles</Link>
+              <Link href={Routes.Articles}>All articles</Link>
             </Button>
-          </section>
+          </Section>
         </div>
       </div>
     </PageHOC>

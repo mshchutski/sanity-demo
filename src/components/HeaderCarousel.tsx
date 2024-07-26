@@ -1,8 +1,17 @@
+import Autoplay from 'embla-carousel-autoplay'
+import Fade from 'embla-carousel-fade'
 import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/button'
-import { Carousel, CarouselContent, CarouselItem } from '@/components/carousel'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/carousel'
 import { urlForImage } from '@/sanity/lib/sanity.image'
 import { HomeCarousel } from '@/sanity/types'
 
@@ -13,7 +22,10 @@ export interface HeaderCarouselProps {
 export default function HeaderCarousel({ items }: HeaderCarouselProps) {
   return (
     <div className="relative w-full">
-      <Carousel opts={{ loop: true }}>
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[Autoplay({ delay: 4000 }), Fade()]}
+      >
         <CarouselContent>
           {items.map(({ travel, _id, subTitle }) => {
             const {
@@ -54,6 +66,9 @@ export default function HeaderCarousel({ items }: HeaderCarouselProps) {
             )
           })}
         </CarouselContent>
+        <CarouselDots />
+        <CarouselPrevious className="left-6" />
+        <CarouselNext className="right-6" />
       </Carousel>
     </div>
   )

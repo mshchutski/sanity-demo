@@ -7,6 +7,8 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 
 import { Button } from './button'
+import { useCallback, useEffect, useState } from 'react'
+import { EmblaCarouselType } from 'embla-carousel/esm'
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -251,10 +253,61 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = 'CarouselNext'
 
+const CarouselDots = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<typeof Button>
+>(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
+  const { api } = useCarousel()
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
+
+  const onDotButtonClick = useCallback(
+    (index: number) => {
+      if (!api) return
+      api.scrollTo(index)
+    },
+    [api],
+  )
+
+  const onInit = useCallback((emblaApi: EmblaCarouselType) => {
+    setScrollSnaps(emblaApi.scrollSnapList())
+  }, [])
+
+  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+    setSelectedIndex(emblaApi.selectedScrollSnap())
+  }, [])
+
+  useEffect(() => {
+    if (!api) return
+
+    onInit(api)
+    onSelect(api)
+    api.on('reInit', onInit).on('reInit', onSelect).on('select', onSelect)
+  }, [api, onInit, onSelect])
+
+  return (
+    <div className="absolute z-30 flex mt-4 left-1/2 space-x-3">
+      {scrollSnaps.map((_, index) => (
+        <button
+          type="button"
+          key={index}
+          onClick={() => onDotButtonClick(index)}
+          className={'w-2.5 h-2.5 rounded-full bg-gray-400 hover:bg-black cursor-pointer transform-all ease-in-out duration-100'.concat(
+            index === selectedIndex ? ' bg-black' : '',
+          )}
+        />
+      ))}
+    </div>
+  )
+})
+
+CarouselDots.displayName = 'CarouselDots'
+
 export {
   Carousel,
   type CarouselApi,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
